@@ -1,0 +1,7 @@
+Django
+Pillow
+django_taggit
+django-social-share
+django-ckeditor
+django-crispy_forms
+environs

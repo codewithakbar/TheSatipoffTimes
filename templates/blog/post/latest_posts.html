@@ -1,0 +1,158 @@
+{% extends "blog/base.html" %}
+{% load blog_tags %}
+{% load static %}
+{% comment %} {% block title %}My Blog{% endblock %}
+
+{% block content %}
+  <h1>My Blog</h1>
+  {% for post in posts %}
+    <h2>
+      <a href="{{ post.get_absolute_url }}">
+        {{ post.title }}
+      </a>
+    </h2>
+    <p class="date">
+      Published {{ post.publish }} by {{ post.author }}
+    </p>
+    {{ post.body|truncatewords:30|linebreaks }}
+  {% endfor %}
+  {% include "pagination.html" with page=page_obj %}
+{% endblock %} {% endcomment %}
+
+
+{% block title %}Barcha toifalar{% endblock %}
+{% block content %}
+
+		<!-- Content
+		============================================= -->
+		<section id="content">
+			<div class="content-wrap pt-0 pt-sm-6">
+				<div class="container">
+
+					<!-- Single Page Categories
+					============================================= -->
+					<div class="row gutter-50">
+						<div class="col-lg-3 cat-widgets position-sticky h-100" style="top: 234px;">
+							<div class="widget widget-search">
+								<form class="input-group">
+									<input class="form-control" type="search" placeholder="Search" aria-label="Search">
+									<div class="input-group-append">
+										<button class="btn btn-outline-secondary icon-line-search" type="button"></button>
+									  </div>
+								</form>
+							</div>
+
+							<div class="widget widget-nav mt-md-5">
+								<ul class="nav">
+									<li class="nav-item active">
+										<a class="nav-link" href="{% url 'blog:post_list' %}">All Categories</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="#">Fashion</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="#">Arts &amp; Culture</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="#">Family</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="#">Beauty</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="#">Fitness</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="#">Music</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="#">Design &amp; Illustrations</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="col-lg-9 mt-5 mt-lg-0">
+							<div class="d-flex">
+								<div class="flex-grow-1">
+									{% if tag %}
+										<h3><span>{{ tag.name }}</span> bilan teglangan xabarlar:</h3>
+									{% else %}
+										<h3>Ko'p fikr bildirilgan xabar</h3>
+									{% endif %}
+								</div>
+								<div>
+									<!-- Example single danger button -->
+									<div class="btn-group">
+										<button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Ko'p fikrlangan xabarlar
+										</button>
+										<div class="dropdown-menu">
+											<a class="dropdown-item" href="#">Songi yangiliklar</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<style>
+								.entry-image { overflow: hidden; width: 480px;}
+								.entry-image .ramka { float: left; margin-right: 10px; margin-bottom: 10px;}
+								.entry-image img { width: 300px; height: 150px; object-fit: cover; }
+							</style>
+
+							<div class="row col-mb-50 posts-md">
+                                {% get_most_commented_posts as most_commented_posts %}
+                                {% for post in most_commented_posts %}
+								<div class="col-md-4">
+									<article class="entry">
+										<div class="entry-image mb-3">
+											<a href="{{ post.get_absolute_url }}"><img src="{% if post.image %}{{ post.image.url }}{%else %}{% static "demos/blog/images/single/hero.jpg" %}{% endif %}" alt="Image 3"></a>
+										</div>
+										<div class="entry-title title-sm">
+											<div class="entry-categories"><a href="demo-blog-categories.html">Arts & Culture</a></div>
+											<h3><a href="{{ post.get_absolute_url }}" class="color-underline stretched-link">{{ post.title }}</a></h3>
+										</div>
+										<div class="entry-meta">
+											<ul>
+												<li>Published {{ post.publish }}</li>
+											</ul>
+										</div>
+										<div class="entry-content mt-3">
+											<p>{{ post.body|truncatewords:10|linebreaks }}</p>
+											<a href="{{ post.get_absolute_url }}" class="more-link">Read the artcile</a>
+										</div>
+									</article>
+								</div>
+                                {% endfor %}
+
+							</div>
+                            {% include "pagination.html" with page=page_obj %}
+						</div>
+					</div>
+					<!-- Single Page Categories End -->
+
+					<!-- Subscribe Section
+					============================================= -->
+					<div class="section section-colored rounded mb-0 px-4">
+						<div class="row justify-content-center align-items-center">
+							<div class="col-lg-5">
+								<h3 class="mb-4 mb-lg-0">Sign up for Updates &amp; Newsletters.</h3>
+							</div>
+							<div class="col-lg-6">
+								<div class="widget subscribe-widget" data-loader="button">
+
+									<div class="widget-subscribe-form-result"></div>
+									<form id="widget-subscribe-form" action="include/subscribe.php" method="post" class="mb-0 d-flex">
+										<input type="email" id="widget-subscribe-form-email" name="widget-subscribe-form-email" class="form-control form-control-lg not-dark required email" placeholder="Your Email Address">
+										<button class="button button-large button-black button-dark font-weight-medium ls0 button-rounded m-0 ml-3" type="submit">Subscribe Now</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div> <!-- Subscribe Section End -->
+
+				</div>
+			</div>
+		</section><!-- #content end -->
+
+{% endblock %}

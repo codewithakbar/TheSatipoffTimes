@@ -1,0 +1,479 @@
+{% extends "blog/base.html" %}
+{% load blog_tags %}
+{% load static %}
+
+{% block title %}
+    {% if post %}{{ post.title }}{% else %}Satipoff Times - yangiliklardan chetta qolib ketmang!{% endif %}
+{% endblock %}
+
+{% block content %}
+		<!-- Content
+		============================================= -->
+		<section id="content">
+			<div class="content-wrap pt-5" style="overflow: visible;">
+				<div class="container">
+					<!-- Hero Area
+					============================================= -->
+
+                    <style>
+                        .entry-images {
+                            margin-bottom: 30px;
+                            display: block;
+                            position: relative;
+                            width: 100%;
+                            height: auto;
+                        }
+                    </style>
+
+					<div class="row border-between">
+						<div class="col-lg-7 mb-5 mb-lg-0">
+							<!-- Post Article -->
+                            {% for post in one_similar_post %}
+							<article class="entry border-bottom-0 mb-0">
+								<div class="entry-images">
+									<a href="{{ post.get_absolute_url }}"><img src="{{ post.image.url }}" alt="Image 3"></a>
+								</div>
+								<div class="entry-title">
+									<div class="entry-categories"><a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></div>
+									<h3><a href="{{ post.get_absolute_url }}" class="stretched-link color-underline"><span>{{ post.title}}</span></a></h3>
+								</div>
+								<div class="entry-meta">
+									<ul>
+										<li><a href="#">{{ post.publish }}</a></li>
+									</ul>
+								</div>
+								<div class="entry-content">
+									<p>{{ post.body|truncatewords:55 | safe }}</p>
+								</div>
+							</article>
+                            {% endfor %}
+						</div>
+
+                        {% comment %} <style>
+                            .entry-image { overflow: hidden; width: 480px;}
+                            .entry-image .ramka { float: left; margin-right: 10px; margin-bottom: 10px;}
+                            .entry-image img { width: 150px; height: 100px; object-fit: cover; }
+                        </style> {% endcomment %}
+
+						<div class="col-lg-5">
+							<h3 class="font-secondary font-weight-medium mb-4 h4">Mashhur yangiliklar:</h3>
+                            <div class="row posts-md col-mb-30">
+                                {% comment %} {% for posti in similar_posts %} {% endcomment %}
+
+                                {% get_most_commented_posts as most_commented_posts %}
+                                {% for post in most_commented_posts %}
+                                    <article class="entry col-12">
+                                        <div class="grid-inner row gutter-20">
+                                            <div class="entry-image col-md-4">
+                                                <a href="{{ post.get_absolute_url }}"><img src="{{ post.image.url }}" alt="Image"></a>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="entry-title title-xs">
+                                                    <div class="entry-categories"><a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></div>
+                                                    <h3><a href="{{ post.get_absolute_url }}" class="stretched-link color-underline">{{ post.title }}</a></h3>
+                                                </div>
+                                                <div class="entry-meta">
+                                                    <ul>
+                                                        <li><a href="#">{{ post.publish}}</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                {% empty %}
+                                    There are no similar posts yet.
+                                {% endfor %}
+
+                                    
+                                {% comment %} {% endfor %} {% endcomment %}
+                                </div>
+
+						</div>
+					</div> <!-- Hero Area End -->
+
+
+					<!-- Subscribe Section
+					============================================= -->
+					<div class="section section-colored rounded px-4">
+						<div class="row justify-content-center align-items-center">
+							<div class="col-lg-5">
+								<h3 class="mb-4 mb-lg-0">Bu yerda sizning reklamangiz bolishi mumkin edi ( ͡❛ ͜ʖ ͡❛)👌</h3>
+							</div>
+							<div class="col-lg-6">
+								<div class="widget subscribe-widget" data-loader="button">
+
+									<div class="widget-subscribe-form-result"></div>
+									<form id="widget-subscribe-form" action="include/subscribe.php" method="post" class="mb-0 d-flex">
+										<input type="email" id="widget-subscribe-form-email" name="widget-subscribe-form-email" class="form-control form-control-lg not-dark required email" placeholder="Your Email Address">
+										<a href="https://t.me/satipoff" class="button button-large button-black button-dark font-weight-medium ls0 button-rounded m-0 ml-3" type="submit">✍( ͡◐ ͜ʖ ͡◐)</a>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div> <!-- Subscribe Section End -->
+
+					<!-- Video Section
+					============================================= -->
+					<div class="d-flex justify-content-between mb-4">
+						<h3 class="font-secondary font-weight-medium m-0">Kerakli Videolar</h3>
+						<a href="{% url 'blog:post_list' %}" class="btn btn-sm btn-outline-secondary">Ko'p Kontent <i class="icon-line-arrow-right"></i></a>
+					</div>
+
+					<div class="row posts-md col-mb-30">
+						<div class="col-md-4">
+							<article class="entry border-bottom-0 mb-0">
+								<div class="entry-image">
+									<a href="https://youtu.be/O9XTWHUW7qQ" data-lightbox="iframe"><img src="{% static 'demos/lapsha.jpg' %}" alt="Image 3">
+										<div class="play-icon"><i class="icon-play"></i>Watch</div>
+									</a>
+								</div>
+								<div class="entry-title title-sm">
+									<div class="entry-categories"><a href="#">Video</a></div>
+									<h3><a href="https://youtu.be/O9XTWHUW7qQ" class="color-underline">Trening ortidan MILLION - INFOLO‘TTIBOZLAR | SUBYEKTIV</a></h3>
+								</div>
+								<div class="entry-meta">
+									<ul>
+										<li><a href="#">14 May 2022</a></li>
+									</ul>
+								</div>
+							</article>
+						</div>
+						<div class="col-md-4">
+							<article class="entry border-bottom-0 mb-0">
+								<div class="entry-image">
+									<a href="https://youtu.be/dcMCb2cq6wc" data-lightbox="iframe"><img src="{% static 'demos/50m.jpg' %}" alt="Image 3">
+										<div class="play-icon"><i class="icon-play"></i>Watch</div>
+									</a>
+								</div>
+								<div class="entry-title title-sm">
+									<div class="entry-categories"><a href="#">Video</a></div>
+									<h3><a href="https://youtu.be/dcMCb2cq6wc" class="color-underline">Siz amal qilmaydigan 50 ta maslahat</a></h3>
+								</div>
+								<div class="entry-meta">
+									<ul>
+										<li><a href="#">12 May 2022</a></li>
+									</ul>
+								</div>
+							</article>
+						</div>
+						<div class="col-md-4">
+							<article class="entry border-bottom-0 mb-0">
+								<div class="entry-image">
+									<a href="https://youtu.be/t_Oygx2zXlc" data-lightbox="iframe"><img src="{% static 'demos/mozg.jpg' %}" alt="Image 3">
+										<div class="play-icon"><i class="icon-play"></i>Watch</div>
+									</a>
+								</div>
+								<div class="entry-title title-sm">
+									<div class="entry-categories"><a href="#">Podcast</a></div>
+									<h3><a href="https://youtu.be/t_Oygx2zXlc" class="color-underline">FIKRINGIZNI O'ZGARTIRING. Qanday qilib o'ylashni o'rganish kerak</a></h3>
+								</div>
+								<div class="entry-meta">
+									<ul>
+										<li><a href="#">20 Aug 2021</a></li>
+									</ul>
+								</div>
+							</article>
+						</div>
+					</div>  <!-- Video Section End -->
+
+				</div>
+
+				<!-- Dark Section Spotlight
+				============================================= -->
+				<div class="section dark">
+					<div class="container">
+						<h2 class="font-secondary font-weight-medium">Tungi rejim</h2>
+						<div class="row border-between">
+							<div class="col-lg-7 mb-5 mb-lg-0">
+								<!-- Post Article -->
+								{% for post in one_most_com_post %}
+									<article class="entry border-bottom-0 mb-0">
+										<div class="entry-images">
+											<a href="{{ post.get_absolute_url }}"><img src="{{ post.image.url }}" alt="Image 3"></a>
+										</div>
+										<div class="entry-title">
+											<div class="entry-categories"><a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></div>
+											<h3><a href="{{ post.get_absolute_url }}" class="stretched-link color-underline"><span>{{ post.title}}</span></a></h3>
+										</div>
+										<div class="entry-meta">
+											<ul>
+												<li><a href="#">{{ post.publish }}</a></li>
+											</ul>
+										</div>
+										<div class="entry-content">
+											<p>{{ post.body|truncatewords:55 | safe }}</p>
+										</div>
+									</article>
+                            	{% endfor %}
+							</div>
+
+							<div class="col-lg-5">
+								<h3 class="font-secondary font-weight-medium mb-4 h4">So‘nggi yangiliklar:</h3>
+
+								<div class="row posts-md col-mb-30">
+									{% for post in similar_posts %}
+										<article class="entry col-12">
+											<div class="grid-inner row gutter-20">
+												<div class="entry-image col-md-4">
+													<a href="{{ post.get_absolute_url }}"><img src="{{ post.image.url }}" alt="Image"></a>
+												</div>
+												<div class="col-md-8">
+													<div class="entry-title title-xs">
+														<div class="entry-categories"><a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></div>
+														<h3><a href="{{ posti.get_absolute_url }}" class="stretched-link color-underline">{{ post.title }}</a></h3>
+													</div>
+													<div class="entry-meta">
+														<ul>
+															<li><a href="#">{{ post.publish }}</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</article>
+									{% endfor %}
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div> <!-- Dark Section Spotlight End -->
+
+				<div class="container">
+
+					<!-- Based On Your Reading History
+					============================================= -->
+					<div class="row border-between">
+
+						<!-- Left Side of Based On Your Reading History
+						============================================= -->
+						<div class="col-lg-8">
+							<h3 class="font-secondary font-weight-medium">Asosiy yangiliklar</h3>
+
+							<div class="row col-mb-50">
+								{% for post in tort_keyin_similar %}
+									<article class="col-12">
+										<div class="row">
+											<div class="col-md-6 entry-image mb-0">
+												<a href="{{ post.get_absolute_url }}">
+													<img src="{{ post.image.url }}" alt="Image">
+												</a>
+											</div>
+											<div class="col-md-6">
+												<div class="entry-title mt-lg-0 mt-3">
+													<div class="entry-categories"><a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></div>
+													<h3><a href="{{ post.get_absolute_url }}" class="color-underline stretched-link">{{ post.title }}</a></h3>
+												</div>
+												<div class="entry-meta">
+													<ul>
+														<li><a href="#">{{ post.publish }}</a></li>
+													</ul>
+												</div>
+												<div class="entry-content">
+													<p>{{ post.body|truncatewords:15 | safe }}</p>
+												</div>
+											</div>
+										</div>
+									</article>
+								{% endfor %}
+
+								
+							</div>
+						</div>
+
+						<!-- Right Side of Based On Your Reading History - Sticky
+						============================================= -->
+						<div class="col-lg-4 mt-5 mt-lg-0 position-sticky h-100" style="top: 234px;">
+							<h3 class="font-secondary font-weight-medium">Bu hafta</h3>
+
+							<ul class="week-posts posts-sm row col-mb-30">
+
+								{% for rek in toqqiz_keyin_similar %}
+									<li class="entry col-12">
+										<div class="grid-inner">
+											<div class="entry-title">
+												<h4><a href="{{ rek.get_absolute_url }}" class="color-underline stretched-link">{{ rek.title }}</a></h4>
+											</div>
+											<div class="entry-meta">
+												<ul>
+													<li><a href="#">{{ rek.publish }}</a></li>
+												</ul>	
+											</div>
+										</div>
+									</li>
+								{% endfor %}
+
+								
+							</ul>
+
+							<div class="line line-sm"></div>
+
+							<h3 class="font-secondary font-weight-medium">Reklama</h3>
+							{% comment %} <div class="fb-post" data-href="https://www.facebook.com/semicolonweb/posts/2855299871172671" data-width="500" data-show-text="false"></div> {% endcomment %}
+							<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fakbar.satipov.5%2Fposts%2F420308963165749&show_text=true&width=500" width="500" height="386" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+
+						</div>
+					</div> <!-- Based On Your Reading History End -->
+				</div>
+
+				<!-- Advertisement Section
+				============================================= -->
+				<div class="section">
+					<div class="container">
+						<div class="ad-banner">
+							<small class="mb-2 d-block">Advertisement</small>
+							{% comment %} <a href="https://themeforest.net/item/canvas-the-multipurpose-html5-template/9228123" target="_blank"><img src="demos/blog/images/ad.jpg" alt="Ad Image"></a> {% endcomment %}
+							{% comment %} <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fakbar.satipov.5%2Fposts%2F420308963165749&show_text=true&width=500" width="500" height="386" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe> {% endcomment %}
+						</div>
+					</div>
+				</div> <!-- Advertisement Section End -->
+
+				<div class="container">
+					<!-- All Categories
+					============================================= -->
+					<div class="row border-between posts-md col-mb-50 mb-0">
+						<div class="col-md-6 col-lg-3">
+
+							<div class="row col-mb-30 mb-0">
+								{% for post in avto_sim %}
+								<article class="entry col-12">
+									<div class="grid-inner">
+										<div class="entry-title title-sm">
+											<h3><a href="{{ post.get_absolute_url }}" class="stretched-link color-underline">{{ post.title }}</a></h3>
+										</div>
+										<div class="entry-meta">
+											<ul>
+												<li><a href="#">{{ post.category }}</a></li>
+											</ul>
+										</div>
+									</div>
+								</article>
+								{% endfor %}
+
+								
+							</div>
+
+							<a href="{% url 'blog:post_list' %}" class="more-link">Batafsil..<i class="icon-line-arrow-right"></i></a>
+						</div>
+
+						<div class="col-md-6 col-lg-3">
+
+							<div class="row col-mb-30 mb-0">
+								{% for rek in toqqiz_keyin_similar %}
+								<article class="entry col-12">
+									<div class="grid-inner">
+										<div class="entry-title title-sm">
+											<h3><a href="{{ rek.get_absolute_url }}" class="stretched-link color-underline">{{ rek.title }}</a></h3>
+										</div>
+										<div class="entry-meta">
+											<ul>
+												<li><a href="#">{{ rek.publish }}</a></li>
+											</ul>
+										</div>
+									</div>
+								</article>
+								{% endfor %}
+
+							</div>
+
+							<a href="{% url 'blog:post_list' %}" class="more-link">Batafsil..<i class="icon-line-arrow-right"></i></a>
+						</div>
+
+						<div class="col-md-6 col-lg-3">
+
+							<div class="row col-mb-30 mb-0">
+								<article class="entry col-12">
+									<div class="grid-inner">
+										<div class="entry-title title-sm">
+											<h3><a href="demo-blog-single.html" class="stretched-link color-underline">Top 10 Tips To Grow Your Fashion</a></h3>
+										</div>
+										<div class="entry-meta">
+											<ul>
+												<li><a href="#">Mar 11, 2020</a></li>
+											</ul>
+										</div>
+									</div>
+								</article>
+
+								<article class="entry col-12">
+									<div class="grid-inner">
+										<div class="entry-title title-sm">
+											<h3><a href="demo-blog-single.html" class="stretched-link color-underline">4 Ways You Can Grow Your Creativity Using Fashion</a></h3>
+										</div>
+										<div class="entry-meta">
+											<ul>
+												<li><a href="#">Mar 11, 2020</a></li>
+											</ul>
+										</div>
+									</div>
+								</article>
+
+								<article class="entry col-12">
+									<div class="grid-inner">
+										<div class="entry-title title-sm">
+											<h3><a href="demo-blog-single.html" class="stretched-link color-underline">Top 15 Best Fashion Android/iPhone Apps</a></h3>
+										</div>
+										<div class="entry-meta">
+											<ul>
+												<li><a href="#">Mar 11, 2020</a></li>
+											</ul>
+										</div>
+									</div>
+								</article>
+							</div>
+
+							<a href="{% url 'blog:post_list' %}" class="more-link">Batafsil..<i class="icon-line-arrow-right"></i></a>
+						</div>
+
+						<div class="col-md-6 col-lg-3">
+
+							<div class="row col-mb-30 mb-0">
+								<article class="entry col-12">
+									<div class="grid-inner">
+										<div class="entry-title title-sm">
+											<h3><a href="demo-blog-single.html" class="stretched-link color-underline">Everything you need to know about supermarket delivery slots</a></h3>
+										</div>
+										<div class="entry-meta">
+											<ul>
+												<li><a href="#">Mar 11, 2020</a></li>
+											</ul>
+										</div>
+									</div>
+								</article>
+
+								<article class="entry col-12">
+									<div class="grid-inner">
+										<div class="entry-title title-sm">
+											<h3><a href="demo-blog-single.html" class="stretched-link color-underline">How the diet industry uses and misuses knowledge of hunger and satiety</a></h3>
+										</div>
+										<div class="entry-meta">
+											<ul>
+												<li><a href="#">Mar 11, 2020</a></li>
+											</ul>
+										</div>
+									</div>
+								</article>
+
+								<article class="entry col-12">
+									<div class="grid-inner">
+										<div class="entry-title title-sm">
+											<h3><a href="demo-blog-single.html" class="stretched-link color-underline">6 protein-rich chutneys that can replace vegetables</a></h3>
+										</div>
+										<div class="entry-meta">
+											<ul>
+												<li><a href="#">Mar 11, 2020</a></li>
+											</ul>
+										</div>
+									</div>
+								</article>
+							</div>
+
+							<a href="{% url 'blog:post_list' %}" class="more-link">Batafsil..<i class="icon-line-arrow-right"></i></a>
+						</div>
+					</div> <!-- All Categories Section End -->
+
+				</div>
+			</div>
+		</section><!-- #content end -->
+
+{% endblock content %}

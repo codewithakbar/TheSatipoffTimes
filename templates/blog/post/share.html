@@ -1,0 +1,118 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %}Share a post{% endblock %}
+
+{% comment %} {% block content %}
+  {% if sent %}
+    <h1>E-mail successfully sent</h1>
+    <p>
+      "{{ post.title }}" was successfully sent to {{ form.cleaned_data.to }}.
+    </p>
+  {% else %}
+    <h1>Share "{{ post.title }}" by e-mail</h1>
+    <form method="post">
+      {{ form.as_p }}
+      {% csrf_token %}
+      <input type="submit" value="Send e-mail">
+    </form>
+  {% endif %}
+{% endblock %} {% endcomment %}
+
+{% block content %}
+
+<section id="content">
+
+    <div class="content-wrap pt-5" style="overflow: visible;">
+
+        <div class="container">
+            <!-- Single Page Content
+            ============================================= -->
+            <div class="single-post mb-0">
+
+                <!-- Single Post
+                ============================================= -->
+                <div class="entry">
+
+                    
+
+
+                    <!-- Entry Content
+                    ============================================= -->
+                    <div class="entry-content">
+                        
+                        <div class="row">
+
+                            <div class="col-lg-1"></div>
+                                
+                            <div class="text-content col-lg-6">
+                                <!-- Tag Cloud
+                                ============================================= -->
+                                <div class="tagcloud">
+                                    <h4>Teglar:</h4>
+                                    {% comment %} <a href="/">{{ post.tags.all|join:", " }}</a> {% endcomment %}
+                                    {% for tag in post.tags.all %}
+                                        <a href="{% url "blog:post_detail_by_tag" tag.slug %}">
+                                        {{ tag.name }}
+                                        </a>
+                                        {% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </div><!-- .tagcloud end --> 
+
+                                <div class="clear"></div>
+
+                                
+
+                                    <div class="clear"></div>
+
+                                    <!-- Comment Form
+                                    ============================================= -->
+                                    <div id="respond">
+                                        {% if sent %}
+                                            <h3>E-mail muvaffaqiyatli yuborildi</h3>
+                                            <p>
+                                                "{{ post.title }}" was successfully sent to {{ form.cleaned_data.to }}.
+                                            </p>
+                                        {% else %}
+                                            <h3>"{{ post.title }}" <span>do'stingizga e-mail orqali yuboring</span> </h3>
+                                        
+                                            <form class="row mb-0" action="#" method="post" id="commentform">
+
+                                                <div class="form-group col-4">
+                                                    {{ form.as_p }}
+                                                </div>
+                                                {% csrf_token %}
+
+                                                <div class="form-group col-12 mt-4 mb-0">
+                                                    <input name="submit" type="submit" id="submit-button" tabindex="5" value="Submit E-mail" class="button button-large button-black button-dark nott font-weight-medium ls0 button-rounded m-0">
+                                                </div>
+                                            </form>                                                 <!-- End Form -->
+                                        {% endif %}
+                                    </div>                                                          <!-- #respond end -->
+                                </div>      
+                            
+                                
+<pre>░██████╗░█████╗░████████╗██╗██████╗░░█████╗░███████╗███████╗
+██╔════╝██╔══██╗╚══██╔══╝██║██╔══██╗██╔══██╗██╔════╝██╔════╝
+╚█████╗░███████║░░░██║░░░██║██████╔╝██║░░██║█████╗░░█████╗░░
+░╚═══██╗██╔══██║░░░██║░░░██║██╔═══╝░██║░░██║██╔══╝░░██╔══╝░░
+██████╔╝██║░░██║░░░██║░░░██║██║░░░░░╚█████╔╝██║░░░░░██║░░░░░
+╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝╚═╝░░░░░░╚════╝░╚═╝░░░░░╚═╝░░░░░</pre>
+                                              <!-- #comments end -->
+                            </div>
+                            <!-- Post Single - Content End -->
+
+                        </div>
+
+                    </div>
+                </div><!-- .entry end --> 
+
+            </div>
+            <!-- Single Page Content -->
+        </div>
+
+    </div>
+
+</section><!-- #content end -->
+
+{% endblock content %}

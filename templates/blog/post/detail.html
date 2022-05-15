@@ -1,0 +1,278 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% load social_share %}
+
+{% block title %}
+    {% if post %}{{ post.title }}{% else %}Products{% endif %}
+{% endblock %}
+
+{% comment %} {% block content %}
+  <h1>{{ post.title }}</h1>
+  <p class="date">
+    Published {{ post.publish }} by {{ post.author }}
+  </p>
+  {{ post.body|linebreaks }}
+{% endblock %} {% endcomment %}
+
+{% block content %}
+
+
+    <section id="content">
+
+        <div class="content-wrap pt-5" style="overflow: visible;">
+
+            <div class="container">
+                <!-- Single Page Content
+                ============================================= -->
+                <div class="single-post mb-0">
+
+                    <!-- Single Post
+                    ============================================= -->
+                    <div class="entry">
+
+                        <div class="row justify-content-center">
+                            
+                            <div class="col-lg-6">
+                                <!-- Entry Title
+                                ============================================= -->
+                                <div class="entry-title">
+                                    <div class="entry-categories"><a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></div>
+                                    <h2>{{ post.title }}</h2>
+                                </div><!-- .entry-title end -->
+                            </div>
+                        </div>
+
+                        <!-- Entry Meta
+                        ============================================= -->
+                        <div class="d-flex justify-content-center mt-2">
+                            <div class="entry-meta">
+                                <ul>
+                                    <li>{{ post.publish }}</li>
+                                    <li>By <a href="/">{{ post.author }}</a></li>
+                                </ul>
+                            </div>
+                        </div><!-- .entry-meta end -->
+
+                        <!-- Entry Image
+                        ============================================= -->
+                        <div class="entry-image mt-5">
+                            <a href="{{ post.image.url }}" data-lightbox="image"><img class="rounded" src="{% if post.image %}{{ post.image.url }}{%else %}{% static "demos/blog/images/single/hero.jpg" %}{% endif %}" alt="Blog Single"></a>
+                        </div><!-- .entry-image end -->
+
+                        <!-- Entry Content
+                        ============================================= -->
+                        <div class="entry-content">
+
+                            <div class="row">
+
+                                <div class="col-lg-2 media-content" data-animate="fadeIn">
+                                    <div class="entry-title text-left">
+                                        <h4>Maqolani yaqinlaringiz bilan ham ulashingiz mumkin <br>👇( ͡❛ ͜ʖ ͡❛) 👇</h4>
+                                    </div>
+                                    <!-- Post Single - Share
+                                    ============================================= -->
+                                    <div>
+                                        <h5 class="mb-2">Postni ulashing:</h5>
+                                        <div>
+                                            <a href="{{ telegram_url  }}" class="social-icon si-small si-rounded si-colored si-facebook">
+                                                <i class="icon-facebook"></i>
+                                                <i class="icon-facebook"></i>
+                                            </a>
+                                            <a href="https://t.me/share/url?text={{ post.title}}&url={{ post.get_absolute_url }}" class="social-icon si-small si-rounded si-colored ml-1 si-twitter">
+                                                <i class="icon-telegram"></i>
+                                                <i class="icon-telegram"></i>
+                                            </a>
+                                            
+                                            <a href="/" class="social-icon si-small si-rounded si-colored ml-1 si-pinterest">
+                                                <i class="icon-pinterest"></i>
+                                                <i class="icon-pinterest"></i>
+                                            </a>
+                                            <a href="{% url "blog:post_share" post.id %}" class="social-icon si-small si-rounded si-colored ml-1 si-rss">
+                                                <i class="icon-mail"></i>
+                                                <i class="icon-mail"></i>
+                                            </a>
+                                        </div>
+                                    </div><!-- Post Single - Share End -->
+                                </div>
+
+                                <div class="col-lg-1"></div>
+
+                                <div class="text-content col-lg-6">
+                                    {{ post.body| safe }}                                  <!-- Body BACKEND-->
+                                    <!-- Tag Cloud
+                                    ============================================= -->
+                                    <div class="tagcloud">
+                                        <h4>Teglar:</h4>
+                                        {% comment %} <a href="/">{{ post.tags.all|join:", " }}</a> {% endcomment %}
+                                        {% for tag in post.tags.all %}
+                                            <a href="{% url "blog:post_detail_by_tag" tag.slug %}">
+                                            {{ tag.name }}
+                                            </a>
+                                            {% if not forloop.last %} {% endif %}
+                                        {% endfor %}
+                                    </div><!-- .tagcloud end -->
+
+                                    <div class="clear"></div>
+
+                                    <!-- Comments
+                                    ============================================= -->
+                                        <div id="comments">
+
+                                            {% with comments.count as total_comments %}
+                                                <h3>
+                                                {{ total_comments }} comment{{ total_comments| pluralize }}
+                                                </h3>
+                                            {% endwith %}
+
+                                            <!-- Comments List
+                                            ============================================= -->
+                                                
+                                                <ol class="commentlist">
+                                                    {% for comment in comments %}
+                                                        <li class="comment even thread-even depth-1" id="li-comment-1">
+
+                                                            <div id="comment-1" class="comment-wrap">
+
+                                                                <div class="comment-meta">
+
+                                                                    <div class="comment-author vcard">
+
+                                                                        <span class="comment-avatar">
+                                                                        <img alt='' src='https://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60' class='avatar avatar-60 photo avatar-default' height='60' width='60' /></span>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="comment-content">
+
+                                                                    <div class="comment-author">{{ comment.name }}<span><a href="/" title="Permalink to this comment">{{ comment.created }}</a></span></div>
+
+                                                                    <p>{{ comment.body| linebreaks }}</p>
+
+                                                                    <a class='comment-reply-link' href='/'><i class="icon-reply"></i></a>
+
+                                                                </div>
+
+                                                                {% comment %} {% empty %}
+                                                                    <p>Hozircha izohlar mavjud emas ¯\_( ͡❛ ͜ʖ ͡❛)_/¯</p> {% endcomment %}
+
+                                                                <div class="clear"></div>
+
+                                                            </div>
+
+
+                                                            {% comment %} <ul class='children'>
+
+                                                                <li class="comment byuser comment-author-_smcl_admin odd alt depth-2" id="li-comment-3">
+
+                                                                    <div id="comment-3" class="comment-wrap">
+
+                                                                        <div class="comment-meta">
+
+                                                                            <div class="comment-author vcard">
+
+                                                                                <span class="comment-avatar">
+                                                                                <img alt='' src='https://1.gravatar.com/avatar/30110f1f3a4238c619bcceb10f4c4484?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' /></span>
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        <div class="comment-content">
+
+                                                                            <div class="comment-author"><a href='#' rel='external nofollow' class='url'>SemiColon</a><span><a href="#" title="Permalink to this comment">April 25, 2012 at 1:03 am</a></span></div>
+
+                                                                            <p>Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+
+                                                                            <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
+
+                                                                        </div>
+
+                                                                        <div class="clear"></div>
+
+                                                                    </div>
+
+                                                                </li>
+
+                                                            </ul> {% endcomment %}
+
+                                                        </li>
+                                                    {% endfor %}
+                                                </ol><!-- .commentlist end -->
+                                            
+                                            
+
+                                            <div class="clear"></div>
+
+                                            <!-- Comment Form
+                                            ============================================= -->
+                                            <div id="respond">
+                                                {% if not new_comment %}
+                                                    
+                                                    <h3>Yangi "Izoh" yozing</h3>
+                                                
+                                                    <form class="row mb-0" method="post" id="commentform">
+
+                                                        <div class="form-group col-4">
+                                                            {{ comment_form.as_p }}
+                                                        </div>
+                                                        {% csrf_token %}
+
+                                                        <div class="form-group col-12 mt-4 mb-0">
+                                                            <input name="submit" type="submit" id="submit-button" tabindex="5" value="Izoh qoshish" class="button button-large button-black button-dark nott font-weight-medium ls0 button-rounded m-0">
+                                                        </div>
+                                                    </form>                                                 <!-- End Form -->
+                                                {% endif %}
+                                            </div>                                                          <!-- #respond end -->
+                                        </div><!-- #comments end -->
+                                    
+                                </div>
+                                <!-- Post Single - Content End -->
+
+                            </div>
+
+                        </div>
+                    </div><!-- .entry end -->
+
+                    <h3 class="mb-0">Mavzuga doir:</h3>
+
+                    {% comment %} <style>
+                        .gallery5 { overflow: hidden; width: 480px;}
+                        .gallery5 .ramka { float: left; margin-right: 10px; margin-bottom: 10px;}
+                        .gallery5 img { width: 250px; height: 150px; object-fit: cover; margin-bottom: 30px; }
+                    </style> {% endcomment %}
+
+                    <div class="row posts-md">
+                        {% for posti in similar_posts %}
+                            <div class="col-lg-3 col-sm-6">
+                                <article class="entry">
+                                        <div class="gallery5">
+                                            <a href="{{ posti.get_absolute_url }}"><img src="{{ posti.image.url }}" alt="Image 3"></a>
+                                        </div>
+                                        <div class="entry-title title-sm text-left">
+                                            <div class="entry-categories"><a href="{{ post.category.get_absolute_url }}">{{post.category}}</a></div>
+                                            
+                                            <h3><a href="{{ posti.get_absolute_url }}" class="color-underline stretched-link">{{ posti.title }}</a></h3> 
+                                            
+                                        </div>
+                                        <div class="entry-meta">
+                                            <ul>
+                                                <li>{{ post.publish }}</li>
+                                            </ul>
+                                        </div>
+                                </article>
+                                    {% comment %} {% empty %}
+                                        Hozircha shunga o'xshash postlar yo'q. {% endcomment %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- Single Page Content -->
+            </div>
+
+        </div>
+
+    </section><!-- #content end -->
+
+{% endblock content %}
