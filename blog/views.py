@@ -1,5 +1,3 @@
-import json
-from unicodedata import category
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage,\
                                   PageNotAnInteger
@@ -9,11 +7,10 @@ from django.db.models import Count
 
 from django.contrib.auth.models import User
 from blog.forms import EmailPostForm, CommentForm
-from .models import Post, Comment, Category
+from .models import FilesAdmin, Post, Comment, Category
 from taggit.models import Tag
 from .data_parse.parse_csgo import collect_data
 from .templatetags.blog_tags import get_most_commented_posts
-
 
 def rek_list(request):
     post_tag = Post.tags.all()
@@ -34,6 +31,7 @@ def asosiy_list(request, tag_slug=None):
     categories = Category.objects.get(name="Avto")
     post_tag = Post.tags.all()
     postla = Post.objects.all()
+    
 
     tag = None
 
@@ -89,6 +87,7 @@ def asosiy_list(request, tag_slug=None):
                  {'tag': tag,
                   'page': page,
                   'posts': posts,
+                  'postla': postla,
                   'post_tag': post_tag,
                   'avto_sim': avto_sim,
                   'categories': categories,
@@ -172,6 +171,10 @@ def post_detail(request, year, month, day, post):
                                    publish__year=year,
                                    publish__month=month,
                                    publish__day=day)
+
+    # post viewers
+    post.views = post.views + 1
+    post.save()
 
     # list of active comments for this list
     comments = post.comments.filter(active=True)

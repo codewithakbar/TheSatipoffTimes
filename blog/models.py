@@ -6,6 +6,13 @@ from taggit.managers import TaggableManager
 from ckeditor.fields import RichTextField
 
 
+class FilesAdmin(models.Model):
+    adminupload = models.FileField(upload_to='media')
+    title = models.CharField(max_length=50)
+
+    def __str__(self) -> str:
+        return self.title
+    
 
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True)
@@ -41,6 +48,7 @@ class Post(models.Model):
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250,
                             unique_for_date='publish')
+    views = models.IntegerField(default=0)
     image = models.ImageField(upload_to='blog/products/%Y/%m/%d', blank=True)
     author = models.ForeignKey(User,
                               on_delete=models.CASCADE,

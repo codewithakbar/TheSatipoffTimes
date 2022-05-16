@@ -39,7 +39,8 @@
 								</div>
 								<div class="entry-meta">
 									<ul>
-										<li><a href="#">{{ post.publish }}</a></li>
+										<li><a href="#">{{ post.publish }}</a> <i class="icon-eye"></i>{{ post.views }}</li> 
+
 									</ul>
 								</div>
 								<div class="entry-content">
@@ -74,7 +75,7 @@
                                                 </div>
                                                 <div class="entry-meta">
                                                     <ul>
-                                                        <li><a href="#">{{ post.publish}}</a></li>
+                                                        <li><a href="#">{{ post.publish}} <i class="icon-eye"></i>{{ post.views }}</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -197,7 +198,7 @@
 										</div>
 										<div class="entry-meta">
 											<ul>
-												<li><a href="#">{{ post.publish }}</a></li>
+												<li><a href="#">{{ post.publish }} <i class="icon-eye"></i>{{ post.views }}</a></li>
 											</ul>
 										</div>
 										<div class="entry-content">
@@ -224,7 +225,7 @@
 													</div>
 													<div class="entry-meta">
 														<ul>
-															<li><a href="#">{{ post.publish }}</a></li>
+															<li><a href="#">{{ post.publish }} <i class="icon-eye"></i>{{ post.views }}</a></li>
 														</ul>
 													</div>
 												</div>
@@ -266,7 +267,7 @@
 												</div>
 												<div class="entry-meta">
 													<ul>
-														<li><a href="#">{{ post.publish }}</a></li>
+														<li><a href="#">{{ post.publish }} <i class="icon-eye"></i>{{ post.views }}</a></li>
 													</ul>
 												</div>
 												<div class="entry-content">
@@ -296,7 +297,7 @@
 											</div>
 											<div class="entry-meta">
 												<ul>
-													<li><a href="#">{{ rek.publish }}</a></li>
+													<li><a href="#">{{ rek.publish }} {{ post.views }}</a></li>
 												</ul>	
 											</div>
 										</div>
@@ -343,7 +344,7 @@
 										</div>
 										<div class="entry-meta">
 											<ul>
-												<li><a href="#">{{ post.category }}</a></li>
+												<li><a href="#">{{ post.publish }} <i class="icon-eye"></i>{{ post.views }}</a></li>
 											</ul>
 										</div>
 									</div>
@@ -367,7 +368,7 @@
 										</div>
 										<div class="entry-meta">
 											<ul>
-												<li><a href="#">{{ rek.publish }}</a></li>
+												<li><a href="#">{{ rek.publish }} <i class="icon-eye"></i>{{ post.views }}</a></li>
 											</ul>
 										</div>
 									</div>
@@ -382,44 +383,21 @@
 						<div class="col-md-6 col-lg-3">
 
 							<div class="row col-mb-30 mb-0">
+								{% for post in most_commented_posts %}
 								<article class="entry col-12">
 									<div class="grid-inner">
 										<div class="entry-title title-sm">
-											<h3><a href="demo-blog-single.html" class="stretched-link color-underline">Top 10 Tips To Grow Your Fashion</a></h3>
+											<h3><a href="{{ post.get_absolute_url }}" class="stretched-link color-underline">{{post.title }}</a></h3>
 										</div>
 										<div class="entry-meta">
 											<ul>
-												<li><a href="#">Mar 11, 2020</a></li>
+												<li><a href="#">{{ post.publish }} <i class="icon-eye"></i>{{ post.views }}</a></li>
 											</ul>
 										</div>
 									</div>
 								</article>
+								{% endfor %}
 
-								<article class="entry col-12">
-									<div class="grid-inner">
-										<div class="entry-title title-sm">
-											<h3><a href="demo-blog-single.html" class="stretched-link color-underline">4 Ways You Can Grow Your Creativity Using Fashion</a></h3>
-										</div>
-										<div class="entry-meta">
-											<ul>
-												<li><a href="#">Mar 11, 2020</a></li>
-											</ul>
-										</div>
-									</div>
-								</article>
-
-								<article class="entry col-12">
-									<div class="grid-inner">
-										<div class="entry-title title-sm">
-											<h3><a href="demo-blog-single.html" class="stretched-link color-underline">Top 15 Best Fashion Android/iPhone Apps</a></h3>
-										</div>
-										<div class="entry-meta">
-											<ul>
-												<li><a href="#">Mar 11, 2020</a></li>
-											</ul>
-										</div>
-									</div>
-								</article>
 							</div>
 
 							<a href="{% url 'blog:post_list' %}" class="more-link">Batafsil..<i class="icon-line-arrow-right"></i></a>
@@ -428,44 +406,21 @@
 						<div class="col-md-6 col-lg-3">
 
 							<div class="row col-mb-30 mb-0">
+								{% for post in similar_posts %}
 								<article class="entry col-12">
 									<div class="grid-inner">
 										<div class="entry-title title-sm">
-											<h3><a href="demo-blog-single.html" class="stretched-link color-underline">Everything you need to know about supermarket delivery slots</a></h3>
+											<h3><a href="{{ post.get_absolute_url }}" class="stretched-link color-underline">{{ post.title }}</a></h3>
 										</div>
 										<div class="entry-meta">
 											<ul>
-												<li><a href="#">Mar 11, 2020</a></li>
+												<li><a href="#">{{ post.publish }} <i class="icon-eye"></i>{{ post.views }}</a></li>
 											</ul>
 										</div>
 									</div>
 								</article>
+								{% endfor %}
 
-								<article class="entry col-12">
-									<div class="grid-inner">
-										<div class="entry-title title-sm">
-											<h3><a href="demo-blog-single.html" class="stretched-link color-underline">How the diet industry uses and misuses knowledge of hunger and satiety</a></h3>
-										</div>
-										<div class="entry-meta">
-											<ul>
-												<li><a href="#">Mar 11, 2020</a></li>
-											</ul>
-										</div>
-									</div>
-								</article>
-
-								<article class="entry col-12">
-									<div class="grid-inner">
-										<div class="entry-title title-sm">
-											<h3><a href="demo-blog-single.html" class="stretched-link color-underline">6 protein-rich chutneys that can replace vegetables</a></h3>
-										</div>
-										<div class="entry-meta">
-											<ul>
-												<li><a href="#">Mar 11, 2020</a></li>
-											</ul>
-										</div>
-									</div>
-								</article>
 							</div>
 
 							<a href="{% url 'blog:post_list' %}" class="more-link">Batafsil..<i class="icon-line-arrow-right"></i></a>
