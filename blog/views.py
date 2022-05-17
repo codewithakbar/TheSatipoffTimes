@@ -28,7 +28,7 @@ def rek_list(request):
 
 def asosiy_list(request, tag_slug=None):
     object_list = Post.published.all()
-    categories = Category.objects.get(name="Avto")
+    
     post_tag = Post.tags.all()
     postla = Post.objects.all()
     
@@ -90,7 +90,6 @@ def asosiy_list(request, tag_slug=None):
                   'postla': postla,
                   'post_tag': post_tag,
                   'avto_sim': avto_sim,
-                  'categories': categories,
                   'similar_posts': similar_posts,
                   'one_similar_post': one_similar_post,
                   'one_most_com_post': one_most_com_post,
