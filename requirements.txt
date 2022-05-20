@@ -5,3 +5,6 @@ django-social-share
 django-ckeditor
 django-crispy_forms
 environs
+whitenoise
+psycopg2-binary
+dj-database-url
